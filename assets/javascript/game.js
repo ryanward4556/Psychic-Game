@@ -19,44 +19,41 @@ var guessesLeftText = document.getElementById("guessleft-text");
 var yourGuessesText = document.getElementById("yourguesses-text");
 
 // Listens for the user to guess
-document.onkeyup = function (event) {
+
+document.onkeyup = function gameStart(event) {
     var userGuess = event.key;
-    console.log(yourGuesses);
+
     // Sets up an array to store userGuesses in to be displayed after each guess
     yourGuesses.push(userGuess);
 
     // chooses a random letter from alphabet
 
     var computerGuess = computerGuessList[Math.floor(Math.random() * computerGuessList.length)];
-    console.log("The computer guesses: " + computerGuess);
 
-    // Subtract 1 Guess Left. 
-
-    guessesLeft -= 1;
-
+    guessCounter();
     userGuessText.textContent = "You guessed: " + userGuess;
     computerGuessText.textContent = "The computer guessed: " + computerGuess;
     winsText.textContent = "Wins: " + wins;
     lossesText.textContent = "Losses: " + losses;
-    guessesLeftText.textContent = "Guesses left: " + guessesLeft;
-
-    // change variable name for yourGuesses and put yourGuesses.join() into a new string variable
     yourGuessesText.textContent = "Your guesses so far: " + yourGuesses.join();
 
-
-
-    // Display user guess on "Your guesses so far: "
-
-
-    // Compare user guess to comp guess
-
-
-    // If they're the same record a W and restart the game
-
-
-    // If not keep listening for guesses until user guesses so far is 0
-
-
-    // If user guesses so far reaches 0, record an L and restart the game
-
 };
+
+
+function guessCounter() {
+    console.log(guessesLeft);
+    if (guessesLeft === 0) {
+        guessesLeftText.textContent = "You Lost";
+        guessesLeft = 10;
+        console.log(guessesLeft);
+        yourGuesses = [];
+        yourGuessesText.textContent = "Your guesses so far: " + yourGuesses;
+    } else {
+        guessesLeft -= 1;
+        guessesLeftText.textContent = "Guesses left: " + guessesLeft;
+
+    }
+}
+
+
+
