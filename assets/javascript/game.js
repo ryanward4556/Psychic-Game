@@ -1,35 +1,62 @@
+// Sets up Global variables
 
-// Display the game "Psychic Game...Guess what letter I'm thinking of"
+var wins = 0;
+var losses = 0;
+var guessesLeft = 10;
+var yourGuesses = [];
 
+// Sets up computer guess array
+
+var computerGuessList = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+    "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+
+// Creates variables to display game on page
+var userGuessText = document.getElementById("userguess-text");
+var computerGuessText = document.getElementById("computerguess-text");
+var winsText = document.getElementById("wins-text");
+var lossesText = document.getElementById("losses-text");
+var guessesLeftText = document.getElementById("guessleft-text");
+var yourGuessesText = document.getElementById("yourguesses-text");
 
 // Listens for the user to guess
+document.onkeyup = function (event) {
+    var userGuess = event.key;
+    console.log(yourGuesses);
+    // Sets up an array to store userGuesses in to be displayed after each guess
+    yourGuesses.push(userGuess);
 
-document.onkeyup = function(event) {
+    // chooses a random letter from alphabet
 
+    var computerGuess = computerGuessList[Math.floor(Math.random() * computerGuessList.length)];
+    console.log("The computer guesses: " + computerGuess);
 
-// Set the comp's guess
+    // Subtract 1 Guess Left. 
 
+    guessesLeft -= 1;
 
-// choose a random letter out of full alphabet 
+    userGuessText.textContent = "You guessed: " + userGuess;
+    computerGuessText.textContent = "The computer guessed: " + computerGuess;
+    winsText.textContent = "Wins: " + wins;
+    lossesText.textContent = "Losses: " + losses;
+    guessesLeftText.textContent = "Guesses left: " + guessesLeft;
 
-
-// Once the user guesses, record their guess letter
-
-
-// Subtract 1 Guess Left. 
-
-
-// Display user guess on "Your guesses so far: "
-
-
-// Compare user guess to comp guess
-
-
-// If they're the same record a W and restart the game
-
-
-// If not keep listening for guesses until user guesses so far is 0
+    // change variable name for yourGuesses and put yourGuesses.join() into a new string variable
+    yourGuessesText.textContent = "Your guesses so far: " + yourGuesses.join();
 
 
-// If user guesses so far reaches 0, record an L and restart the game
 
+    // Display user guess on "Your guesses so far: "
+
+
+    // Compare user guess to comp guess
+
+
+    // If they're the same record a W and restart the game
+
+
+    // If not keep listening for guesses until user guesses so far is 0
+
+
+    // If user guesses so far reaches 0, record an L and restart the game
+
+};
