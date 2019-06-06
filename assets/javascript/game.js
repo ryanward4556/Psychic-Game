@@ -1,59 +1,66 @@
 // Sets up Global variables
-
 var wins = 0;
 var losses = 0;
 var guessesLeft = 10;
 var yourGuesses = [];
 
 // Sets up computer guess array
-
 var computerGuessList = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
     "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 
+
 // Creates variables to display game on page
 var userGuessText = document.getElementById("userguess-text");
-var computerGuessText = document.getElementById("computerguess-text");
 var winsText = document.getElementById("wins-text");
 var lossesText = document.getElementById("losses-text");
 var guessesLeftText = document.getElementById("guessleft-text");
 var yourGuessesText = document.getElementById("yourguesses-text");
+var startText = document.getElementById("start-text");
+
+
+// Displays directions for game
+startText.textContent = "Guess a letter to start!";
+
 
 // Listens for the user to guess
-
 document.onkeyup = function gameStart(event) {
     var userGuess = event.key;
+    startText.style.display = "none";
 
-    // Sets up an array to store userGuesses in to be displayed after each guess
+    // Adds to userGuesses array in to be displayed after each guess
     yourGuesses.push(userGuess);
 
     // chooses a random letter from alphabet
-
     var computerGuess = computerGuessList[Math.floor(Math.random() * computerGuessList.length)];
 
-    guessCounter();
+    // calls function to track score
+    scoreTracker(userGuess, computerGuess);
+
+    //
     userGuessText.textContent = "You guessed: " + userGuess;
-    computerGuessText.textContent = "The computer guessed: " + computerGuess;
     winsText.textContent = "Wins: " + wins;
     lossesText.textContent = "Losses: " + losses;
     yourGuessesText.textContent = "Your guesses so far: " + yourGuesses.join();
-
+    guessesLeftText.textContent = "Guesses left: " + guessesLeft;
 };
 
-
-function guessCounter() {
-    console.log(guessesLeft);
-    if (guessesLeft === 0) {
-        guessesLeftText.textContent = "You Lost";
+// Increases wins if user guesses correctly and losses if not. Also resets guessesLeft 
+function scoreTracker(user, comp) {
+    if (user === comp) {
+        wins += 1;
+    } else if (guessesLeft <= 1) {
+        losses += 1;
         guessesLeft = 10;
-        console.log(guessesLeft);
         yourGuesses = [];
         yourGuessesText.textContent = "Your guesses so far: " + yourGuesses;
     } else {
         guessesLeft -= 1;
-        guessesLeftText.textContent = "Guesses left: " + guessesLeft;
-
     }
+
+
 }
+
+
 
 
 
